@@ -1,6 +1,7 @@
 # Processing Scripts
 
 ## Overview
+Scripts used for processing born-digital archives at the UGA Special Collections Libraries. Workflow documentation can be found in the [born-digital-processing repo](https://github.com/uga-libraries/born-digital-processing).
 
 ## Geetting Started
 
