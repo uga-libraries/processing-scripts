@@ -4,12 +4,12 @@ This file is used as input by the general aip script.
 After the script runs, add the title and adjust the version number if not 1.
 
 Parameters:
-    pres_copy (required): path to PreservationCopy directory, which contains the folders to be made into AIPs
-    coll_id (required): collection identifier
-    er_num (optional): first sequential number to use for the AIP ID, if not 1
-
+    aips_directory (required): path to the directory that contains the folders to be made into AIPs
+    collection_id (required): collection identifier
+    er_number (optional): first sequential number to use for the AIP ID, if not 1
+    
 Returns:
-    metadata.csv created in the pres_copy
+    metadata.csv created in the aips_directory
 """
 import csv
 import os
@@ -17,32 +17,32 @@ import sys
 
 
 # Variables from script arguments.
-pres_copy = sys.argv[1]
-coll_id = sys.argv[2]
+aips_directory = sys.argv[1]
+collection_id = sys.argv[2]
 try:
-    er_num = sys.argv[3]
+    er_number = sys.argv[3]
 except IndexError:
-    er_num = 1
+    er_number = 1
 
 # Calculate department (ARCHive group) based on the collection id.
-if coll_id.startswith('harg') or coll_id.startswith('ua'):
-    dept = 'hargrett'
-elif coll_id.startswith('rbrl'):
-    dept = 'russell'
+if collection_id.startswith('harg') or collection_id.startswith('ua'):
+    department = 'hargrett'
+elif collection_id.startswith('rbrl'):
+    department = 'russell'
 else:
     print('Collection ID is not an expected pattern. Should start with harg, ua, or rbrl')
     sys.exit(1)
 
-# Starts metadata.csv with a header row in pres_copy.
-with open(os.path.join(pres_copy, 'metadata.csv'), 'w', newline='') as md:
-    md_write = csv.writer(md)
+# Starts metadata.csv with a header row in aips_directory.
+with open(os.path.join(aips_directory, 'metadata.csv'), 'w', newline='') as md_csv:
+    md_write = csv.writer(md_csv)
     md_write.writerow(['Department', 'Collection', 'Folder', 'AIP_ID', 'Title', 'Version'])
 
     # For each folder in pres_dir, calculates aip_id and saves row to metadata.csv.
     # All other values are the same for every row.
-    for folder in os.listdir(pres_copy):
-        if folder == 'metadata.csv':
+    for folder_name in os.listdir(aips_directory):
+        if folder_name == 'metadata.csv':
             continue
-        aip_id = f'{coll_id}-er-{er_num:06}'
-        md_write.writerow([dept, coll_id, folder, aip_id, 'TitleTBD', 1])
-        er_num += 1
+        aip_id = f'{collection_id}-er-{er_number:06}'
+        md_write.writerow([department, collection_id, folder_name, aip_id, 'TitleTBD', 1])
+        er_number += 1
