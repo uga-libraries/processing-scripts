@@ -33,3 +33,11 @@ with open(os.path.join(pres_copy, 'metadata.csv'), 'w', newline='') as md:
     md_write = csv.writer(md)
     md_write.writerow(['Department', 'Collection', 'Folder', 'AIP_ID', 'Title', 'Version'])
 
+    # For each folder in pres_dir, calculates aip_id and saves row to metadata.csv.
+    # All other values are the same for every row.
+    for folder in os.listdir(pres_copy):
+        if folder == 'metadata.csv':
+            continue
+        aip_id = f'{coll_id}-er-{er_num:06}'
+        md_write.writerow([dept, coll_id, folder, aip_id, 'TitleTBD', 1])
+        er_num += 1
