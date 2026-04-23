@@ -16,9 +16,10 @@ import sys
 
 if __name__ == '__main__':
 
-    # Assign arguments to variables.
+    # Assign arguments to variables and calculate parent of aips_directory for saving the report.
     collection_folder = sys.argv[1]
     aips_directory = sys.argv[2]
+    output_directory = os.path.dirname(aips_directory)
 
     # Find the accession bag manifests in the collection_folder and combine to one dataframe.
 
