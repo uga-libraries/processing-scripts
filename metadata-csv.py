@@ -20,7 +20,7 @@ import sys
 aips_directory = sys.argv[1]
 collection_id = sys.argv[2]
 try:
-    er_number = sys.argv[3]
+    er_number = int(sys.argv[3])
 except IndexError:
     er_number = 1
 
