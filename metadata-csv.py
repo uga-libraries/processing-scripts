@@ -19,11 +19,11 @@ try:
 except IndexError:
     er_num = 1
 
-# Calculate group based on the collection id.
+# Calculate department (ARCHive group) based on the collection id.
 if coll_id.startswith('harg') or coll_id.startswith('ua'):
-    group = 'hargrett'
+    dept = 'hargrett'
 elif coll_id.startswith('rbrl'):
-    group = 'russell'
+    dept = 'russell'
 else:
     print('Collection ID is not an expected pattern. Should start with harg, ua, or rbrl')
     sys.exit(1)
@@ -33,4 +33,3 @@ with open(os.path.join(pres_copy, 'metadata.csv'), 'w', newline='') as md:
     md_write = csv.writer(md)
     md_write.writerow(['Department', 'Collection', 'Folder', 'AIP_ID', 'Title', 'Version'])
 
-    
