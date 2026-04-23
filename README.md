@@ -17,8 +17,15 @@ No special instructions so far.
 ## Using the Scripts
 
 ### metadata-csv
-- Script usage: `python /path/to/script /path/to/folder collection_id [starting_er_number]
 
-Explain the purpose of the script.
+Script usage: `python /path/to/script /path/to/aips_directory collection_id [er_number]
+   - aips_directory (required): path to the directory that contains the folders to be made into AIPs 
+   - collection_id (required): collection identifier 
+   - er_number (optional): first sequential number to use for the AIP ID, if not 1
 
-Explain the output of the script.
+Creates the metadata.csv with one row for each aip folder in a directory.
+This CSV is used as input for the [general_aip.py script](https://github.com/uga-libraries/general-aip).
+
+Script output is the metadata.csv, saved in the aips_directory.
+To complete the metadata.csv, add the AIP titles and edit the version number if not 1.
+
