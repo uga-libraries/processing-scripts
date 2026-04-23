@@ -1,10 +1,15 @@
 """
-Create a metadata.csv file for a folder ready to be turned into AIPs.
+Creates a metadata.csv file for a directory of folders ready to be turned into AIPs.
+This file is used as input by the general aip script.
+After the script runs, add the title and adjust the version number if not 1.
 
 Parameters:
     pres_copy (required): path to PreservationCopy directory, which contains the folders to be made into AIPs
     coll_id (required): collection identifier
     er_num (optional): first sequential number to use for the AIP ID, if not 1
+
+Returns:
+    metadata.csv created in the pres_copy
 """
 import csv
 import os
