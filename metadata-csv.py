@@ -28,3 +28,9 @@ else:
     print('Collection ID is not an expected pattern. Should start with harg, ua, or rbrl')
     sys.exit(1)
 
+# Starts metadata.csv with a header row in pres_copy.
+with open(os.path.join(pres_copy, 'metadata.csv'), 'w', newline='') as md:
+    md_write = csv.writer(md)
+    md_write.writerow(['Department', 'Collection', 'Folder', 'AIP_ID', 'Title', 'Version'])
+
+    
