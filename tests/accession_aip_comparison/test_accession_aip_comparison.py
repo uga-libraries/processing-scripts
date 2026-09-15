@@ -22,6 +22,29 @@ class MyTestCase(unittest.TestCase):
             if os.path.exists(report):
                 os.remove(report)
 
+    def test_error_missing_manifest(self):
+        """Test for when there are two accessions but one has a bag named incorrectly, so the manifest is not read"""
+        # Makes variables for the script arguments and runs the script.
+        collection_folder = os.path.join('tests', 'accession_aip_comparison', 'error_missing_manifest', 'collection')
+        aips_directory = os.path.join('tests', 'accession_aip_comparison', 'error_missing_manifest', 'aips_dir')
+        message = subprocess.run(f'python accession-aip-comparison.py {collection_folder} {aips_directory}',
+                                 shell=True, stdout=subprocess.PIPE)
+
+        # Tests the correct message is printed.
+        result = message.stdout.decode('utf-8')
+        expected = ("tests\\accession_aip_comparison\\error_missing_manifest\\collection\\coll-no-acc-num\\"
+                    "coll-no-acc-num_bag\\manifest-md5.txt not found\r\n")
+        self.assertEqual(expected, result, "Problem with test for error_missing_manifest, print")
+
+        # Tests the comparison report has the expected content.
+        report = os.path.join('tests', 'accession_aip_comparison', 'error_missing_manifest', 'aip_fixity_changes.csv')
+        result = csv_to_list(report)
+        expected = [['MD5', 'Path', 'Filename'],
+                    ['4c144555d6eb4b68b964877f75826212', 'objects/LETTERS/00000005.pdf', '00000005.pdf'],
+                    ['d0bf26776c45ba85ac8b758fb7bda269', 'objects/LETTERS/00000001.pdf', '00000001.pdf'],
+                    ['e14e77fd155e31088b9e73901aceb31d', 'objects/LETTERS/00000004.pdf', '00000004.pdf']]
+        self.assertEqual(expected, result, "Problem with test for error_missing_manifest, report")
+
     def test_match_multiple(self):
         """Test for when there are two accessions, two AIPs, the accessions include duplicates,
         and all AIP MD5 + filenames match at least one row in the accession"""

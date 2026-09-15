@@ -1,0 +1,5 @@
+bc9578b54f09a9ecea89d61eabffae76  data/metadata/00000004.pdf_fits.xml
+ab70242bd74f0811c5c8f2049354ce4a  data/metadata/00000005.pdf_fits.xml
+ba072f7a382f92abc149c3af8aaa9bcf  data/metadata/er-002_preservation.xml
+e14e77fd155e31088b9e73901aceb31d  data/objects/LETTERS/00000004.pdf
+4c144555d6eb4b68b964877f75826212  data/objects/LETTERS/00000005.pdf
