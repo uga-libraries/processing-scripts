@@ -77,6 +77,10 @@ def comparison_report(df_acc, df_aip, aips_dir):
     df = df_aip.merge(df_acc, how='outer', on=['MD5', 'Filename'], indicator=True)
     df_aip_only = df[df['_merge'] == 'left_only']
 
+    # Rename AIP path column and remove unnecessary columns for a simpler report.
+    df_aip_only.rename(columns={'Path_x': 'Path'}, inplace=True)
+    df_aip_only.drop(columns=['Path_y', '_merge'], inplace=True)
+
     # If any were found, save to a report in the parent directory of aips_dir (typically PreservationCopy).
     # If not, prints a message rather than saving an empty report.
     if len(df_aip_only) > 0:
