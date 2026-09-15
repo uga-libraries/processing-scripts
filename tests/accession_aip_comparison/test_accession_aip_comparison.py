@@ -15,7 +15,7 @@ class MyTestCase(unittest.TestCase):
 
     def tearDown(self):
         """Delete the comparison report, if made (should only be made for mismatch tests"""
-        tests = ['error_missing_manifests', 'match_multiple', 'match_single', 'mismatch_fixity_change',
+        tests = ['error_missing_manifest', 'match_multiple', 'match_single', 'mismatch_fixity_change',
                  'mismatch_name_change']
         for test in tests:
             report = os.path.join('tests', 'accession_aip_comparison', test, 'aip_fixity_changes.csv')
