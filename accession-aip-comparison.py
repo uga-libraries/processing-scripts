@@ -70,6 +70,21 @@ def aip_manifests(aips_dir):
     return df_combined
 
 
+def comparison_report(df_acc, df_aip, aips_dir):
+    """Find any MD5 + Filename in an AIP that are not in an accession and save to a report"""
+
+    # Compare the two dataframes and find MD5 + Filename combinations only in df_aip.
+    df = df_aip.merge(df_acc, how='outer', on=['MD5', 'Filename'], indicator=True)
+    df_aip_only = df[df['_merge'] == 'left_only']
+
+    # If any were found, save to a report in the parent directory of aips_dir (typically PreservationCopy).
+    # If not, prints a message rather than saving an empty report.
+    if len(df_aip_only) > 0:
+        df_aip_only.to_csv(os.path.join(os.path.dirname(aips_dir), 'aip_fixity_changes.csv'), index=False)
+    else:
+        print("AIP fixity is unchanged")
+
+
 if __name__ == '__main__':
 
     # Assign arguments to variables and calculate parent of aips_directory for saving the report.
@@ -83,6 +98,5 @@ if __name__ == '__main__':
     # Find the AIP bag manifests in the aips_directory and combine into one dataframe.
     df_aips = aip_manifests(aips_directory)
 
-    # Compare the accession and AIP dataframes to find any MD5 that does not occur the same number of times in each.
-
-    # Save the path for every accession and AIP file with MD5s that did not match to a CSV for review.
+    # Make a report with any file in an AIP with changed fixity, or print if all match.
+    comparison_report(df_accession, df_aips, aips_directory)
