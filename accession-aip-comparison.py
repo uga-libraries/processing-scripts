@@ -1,13 +1,17 @@
 """
-Compares the manifests of accession and AIP bags for a processed collection
-to find any files in the AIP that were altered during processing
-and any files in the accession that were accidentally left out of the AIPs.
+Compares the filename and MD5 from the AIP bag manifests to the accession manifests for a processed collection
+to find any files in the AIP that were altered during processing.
+
+The filename is included in the match to remove the risk of an MD5 collision between two files,
+but the file path is not used since folders may be moved or renamed.
+This will identify any renamed files as a fixity change, but these are rare.
 
 Parameters:
     collection_folder: path to the collection folder, which may have one or more accessions
     aips_directory: path to the folder with the bagged, unzipped version of the AIPs
 
 Returns:
+    aip_fixity_changes.csv: report with the MD5 and filepath of any AIP file that didn't match the accession
 
 """
 import os
@@ -28,7 +32,6 @@ def accession_manifests(coll_folder):
             except FileNotFoundError:
                 print(f'{manifest_path} not found')
 
-    print(df_combined['Path'])
     return df_combined
 
 
