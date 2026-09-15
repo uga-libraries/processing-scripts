@@ -1,6 +1,6 @@
 """
-Compares the filename and MD5 from the AIP bag manifests to the accession manifests for a processed collection
-to find any files in the AIP that were altered during processing.
+Compares the filename and MD5 from the AIP bag manifest(s) to the accession manifest(s) for a processed collection
+to find any files in the AIP(s) that were altered during processing.
 
 The filename is included in the match to remove the risk of an MD5 collision between two files,
 but the file path is not used since folders may be moved or renamed.
@@ -8,10 +8,11 @@ This will identify any renamed files as a fixity change, but these are rare.
 
 Parameters:
     collection_folder: path to the collection folder, which may have one or more accessions
-    aips_directory: path to the folder with the bagged, unzipped version of the AIPs
+    aips_directory: path to the folder with the bagged, unzipped version of the AIP(s)
 
 Returns:
-    aip_fixity_changes.csv: report with the MD5 and filepath of any AIP file that didn't match the accession
+    aip_fixity_changes.csv: report with the MD5, path, and filename of any AIP file that didn't match an accession
+    This is only created if at least one AIP file didn't match.
 
 """
 import os
