@@ -49,6 +49,21 @@ class MyTestCase(unittest.TestCase):
         expected = "AIP fixity is unchanged\r\n"
         self.assertEqual(expected, result, "Problem with test for match_single")
 
+    def test_mismatch_fixity_change(self):
+        """Test for when there are two accessions, two AIPs, and the fixity has changed for 2 AIP file"""
+        # Makes variables for the script arguments and runs the script.
+        collection_folder = os.path.join('tests', 'accession_aip_comparison', 'mismatch_fixity_change', 'collection')
+        aips_directory = os.path.join('tests', 'accession_aip_comparison', 'mismatch_fixity_change', 'aips_dir')
+        subprocess.run(f'python accession-aip-comparison.py {collection_folder} {aips_directory}', shell=True)
+
+        # Tests the comparison report has the expected content.
+        report = os.path.join('tests', 'accession_aip_comparison', 'mismatch_fixity_change', 'aip_fixity_changes.csv')
+        result = csv_to_list(report)
+        expected = [['MD5', 'Path', 'Filename'],
+                    ['0xx000000xx0x0xxxx000x000x0x0000', 'objects/LETTERS/00000002.pdf', '00000002.pdf'],
+                    ['hhhhhhhhhmmmmmmmmmmmmmmmmmmmmmmm', 'objects/LETTERS/00000004.pdf', '00000004.pdf']]
+        self.assertEqual(expected, result, "Problem with test for mismatch_fixity_change")
+
     def test_mismatch_name_change(self):
         """Test for when there is one accession, one AIP, and the MD5 matches but the filename does not"""
         # Makes variables for the script arguments and runs the script.
