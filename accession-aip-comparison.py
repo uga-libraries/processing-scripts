@@ -21,7 +21,15 @@ import sys
 
 def accession_manifests(coll_folder):
     """Find every accession bag manifest in the collection folder and combine to one df"""
+
+    # Start df for combined information, with columns already named.
     df_combined = pd.DataFrame(columns=['MD5', 'Path'])
+
+    # Find each accession bag manifest based on the folder naming convention and combine into one df.
+    # If a bag manifest is not in the expected location, print an error since it is probably a naming issue to fix.
+    # The bag manifest splits md5 and path by 2 spaces, but paths can have 2 spaces elsewhere as well,
+    # so the start of the path (data/) is also included in the delimiter.
+    # The bag manifest has no header, so column names are assigned.
     for folder_name in os.listdir(coll_folder):
         if folder_name.lower().endswith('er') or folder_name.endswith('no-acc-num'):
             manifest_path = os.path.join(coll_folder, folder_name, f'{folder_name}_bag', 'manifest-md5.txt')
