@@ -23,7 +23,6 @@ def accession_manifests(coll_folder):
     """Find every accession bag manifest in the collection folder and combine to one df"""
     df_combined = pd.DataFrame(columns=['MD5', 'Path'])
     for folder_name in os.listdir(coll_folder):
-        # Determines if the folder is an accession.
         if folder_name.lower().endswith('er') or folder_name.endswith('no-acc-num'):
             manifest_path = os.path.join(coll_folder, folder_name, f'{folder_name}_bag', 'manifest-md5.txt')
             try:
@@ -31,6 +30,9 @@ def accession_manifests(coll_folder):
                 df_combined = pd.concat([df_combined, df], ignore_index=True)
             except FileNotFoundError:
                 print(f'{manifest_path} not found')
+
+    # Add a column with just the filename.
+    df_combined['Filename'] = df_combined['Path'].str.split('/').str[-1]
 
     return df_combined
 
