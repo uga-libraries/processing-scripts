@@ -45,6 +45,31 @@ def accession_manifests(coll_folder):
     return df_combined
 
 
+def aip_manifests(aips_dir):
+    """Find every aip bag manifest in the collection folder and combine to one df"""
+
+    # Start df for combined information, with columns already named.
+    df_combined = pd.DataFrame(columns=['MD5', 'Path'])
+
+    # Find each aip bag manifest and combine into one df.
+    # Any folder inside aips_dir should be an AIP bag.
+    # If a bag manifest is not in the expected location, print an error (unlikely).
+    # See accession_manifests() for more details on the bag manifest.
+    for folder_name in os.listdir(aips_dir):
+        if os.path.isdir(os.path.join(aips_dir, folder_name)):
+            manifest_path = os.path.join(aips_dir, folder_name, 'manifest-md5.txt')
+            try:
+                df = pd.read_csv(manifest_path, delimiter='  data/', engine='python', header=None, names=['MD5', 'Path'])
+                df_combined = pd.concat([df_combined, df], ignore_index=True)
+            except FileNotFoundError:
+                print(f'{manifest_path} not found')
+
+    # Add a column with just the filename.
+    df_combined['Filename'] = df_combined['Path'].str.split('/').str[-1]
+
+    return df_combined
+
+
 if __name__ == '__main__':
 
     # Assign arguments to variables and calculate parent of aips_directory for saving the report.
@@ -56,6 +81,7 @@ if __name__ == '__main__':
     df_accession = accession_manifests(collection_folder)
 
     # Find the AIP bag manifests in the aips_directory and combine into one dataframe.
+    df_aips = aip_manifests(aips_directory)
 
     # Compare the accession and AIP dataframes to find any MD5 that does not occur the same number of times in each.
 
