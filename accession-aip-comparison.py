@@ -79,7 +79,7 @@ def comparison_report(df_acc, df_aip, aips_dir):
 
     # Compare the two dataframes and find MD5 + Filename combinations only in df_aip.
     df = df_aip.merge(df_acc, how='outer', on=['MD5', 'Filename'], indicator=True)
-    df_aip_only = df[df['_merge'] == 'left_only']
+    df_aip_only = df[df['_merge'] == 'left_only'].copy()
 
     # Rename AIP path column and remove unnecessary columns for a simpler report.
     df_aip_only.rename(columns={'Path_x': 'Path'}, inplace=True)
