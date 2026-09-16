@@ -1,2 +1,3 @@
 /.idea
 /tests/metadata_csv/__pycache__
+tests/accession_aip_comparison/__pycache__/test_accession_aip_comparison.cpython-314.pyc

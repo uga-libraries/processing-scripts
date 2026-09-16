@@ -1,0 +1,1 @@
+Placeholder for a folder that correctly does not include a bag manifest.

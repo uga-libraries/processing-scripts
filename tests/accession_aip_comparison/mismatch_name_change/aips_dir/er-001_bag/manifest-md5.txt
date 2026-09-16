@@ -1,0 +1,3 @@
+2b0a9eee7e792d4d1f5e6b984870bd8d  data/metadata/'quote'.pdf_fits.xml
+ba072f7a382f92abc149c3af8aaa9bcf  data/metadata/er-001_preservation.xml
+d0bf26776c45ba85ac8b758fb7bda269  data/objects/LETTERS/'quote'.pdf

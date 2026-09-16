@@ -16,9 +16,22 @@ No special instructions so far.
 
 ## Using the Scripts
 
+### accession-aip-comparison
+
+Script usage: `python path/to/script path/to/collection_folder path/to/aips_directory`
+   - collection_folder (required): path to the folder with the accession(s)
+   - aips_directory (required): path to the folder with the bagged, unzipped version of the AIP(s)
+
+Compares the filename and MD5 from the AIP bag manifest(s) to the accession manifest(s) for a processed collection
+to find any files in the AIP(s) that were altered during processing.
+
+Script output is a report named aip_fixity_changes.csv with the MD5, path, and filename of any AIP file 
+that didn't match an accession, saved to the parent folder of aips_directory (usually PreservationCopy).
+Or if there were no mismatches, the script prints "AIP fixity is unchanged" instead.
+
 ### metadata-csv
 
-Script usage: `python /path/to/script /path/to/aips_directory collection_id [er_number]
+Script usage: `python /path/to/script /path/to/aips_directory collection_id [er_number]`
    - aips_directory (required): path to the directory that contains the folders to be made into AIPs 
    - collection_id (required): collection identifier 
    - er_number (optional): first sequential number to use for the AIP ID, if not 1
