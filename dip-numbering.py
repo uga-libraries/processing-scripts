@@ -12,7 +12,9 @@ Parameters:
 
 Returns: None
 """
+import os
 import sys
+
 
 # Assigns required arguments to variables.
 access_dir = sys.argv[1]
@@ -23,3 +25,10 @@ if len(sys.argv) == 4:
     next_num = int(sys.argv[3])
 else:
     next_num = 1
+
+# Calculates the access ID for every folder in access_dir and renames the folder to start with it.
+for folder in os.listdir(access_dir):
+    new_folder = f'{coll_id}-access-{next_num:06d}_{folder}'
+    os.rename(os.path.join(access_dir, folder), os.path.join(access_dir, new_folder))
+    next_num += 1
+    
