@@ -12,3 +12,14 @@ Parameters:
 
 Returns: None
 """
+import sys
+
+# Assigns required arguments to variables.
+access_dir = sys.argv[1]
+coll_id = sys.argv[2]
+
+# Calculates the starting sequential number, which is 1 or the value of the optional third argument.
+if len(sys.argv) == 4:
+    next_num = int(sys.argv[3])
+else:
+    next_num = 1
