@@ -31,7 +31,7 @@ if collection_id.startswith('har'):
 elif collection_id.startswith('rbrl'):
     department = 'russell'
 else:
-    print('Collection ID is not an expected pattern. Should start with harg, ua, or rbrl')
+    print('Collection ID is not an expected pattern. Should start with har or rbrl')
     sys.exit(1)
 
 # Creates metadata.csv with a header row in aips_directory.
