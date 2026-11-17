@@ -26,7 +26,7 @@ except IndexError:
 
 # Calculates the department (ARCHive group) based on the collection id.
 # Quits the script with an explanation if it does not match one of the expected patterns.
-if collection_id.startswith('harg') or collection_id.startswith('ua'):
+if collection_id.startswith('har'):
     department = 'hargrett'
 elif collection_id.startswith('rbrl'):
     department = 'russell'
@@ -37,7 +37,7 @@ else:
 # Creates metadata.csv with a header row in aips_directory.
 with open(os.path.join(aips_directory, 'metadata.csv'), 'w', newline='') as md_csv:
     md_write = csv.writer(md_csv)
-    md_write.writerow(['Department', 'Collection', 'Folder', 'AIP_ID', 'Title', 'Version'])
+    md_write.writerow(['Department', 'Collection', 'Folder', 'AIP_ID', 'Title', 'Rights', 'Version'])
 
     # For each folder in aips_directory, calculates the aip_id and saves row to metadata.csv.
     # All other values are the same for every row.
@@ -45,7 +45,7 @@ with open(os.path.join(aips_directory, 'metadata.csv'), 'w', newline='') as md_c
         if folder_name == 'metadata.csv':
             continue
         aip_id = f'{collection_id}-er-{er_number:06}'
-        md_write.writerow([department, collection_id, folder_name, aip_id, 'TitleTBD', 1])
+        md_write.writerow([department, collection_id, folder_name, aip_id, 'TitleTBD', 'http://rightsstatements.org/vocab/InC/1.0/', 1])
 
         # Adds one to the er_number to be ready for making the next AIP ID.
         er_number += 1
